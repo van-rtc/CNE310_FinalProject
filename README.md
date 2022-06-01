@@ -1,5 +1,5 @@
 # Bookstore
-Bookstore is a web application by Alabamazon and is the final project for CNA 340 IT Project Management.
+Bookstore is a web application by Alabamazon and is the final project for CNE 310 IT Project Management.
   
 ## Getting Started ##
 This will prepare a deployment of the eCommerce website on your local system.
