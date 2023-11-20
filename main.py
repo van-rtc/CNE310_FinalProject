@@ -179,10 +179,10 @@ def update_profile():
 @app.route("/loginForm")
 def login_form():
     # Uncomment to enable logging in and registration
-    #if 'email' in session:
+    if 'email' in session:            #Uncommented by Yeab 1/18/2023
         return redirect(url_for('root'))
-    #else:
-    #    return render_template('login.html', error='')
+    else:               #Uncommented by Yeab 1/18/2023
+        return render_template('login.html', error='')      #Uncommented by Yeab 1/18/2023
 
 @app.route("/login", methods = ['POST', 'GET'])
 def login():
