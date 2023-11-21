@@ -36,14 +36,13 @@ def root():
         # Show last product added
         cur.execute('SELECT productId, name, price, description, image, stock FROM products ORDER BY productId DESC LIMIT 1 ')
         # Show all items
-        #cur.execute('SELECT productId, name, price, description, image, stock FROM products LIMIT 1')
+        cur.execute('SELECT productId, name, price, description, image, stock FROM products LIMIT 1') # hashtag in front of line removed by Tyler Sabin 11/16/2023
         item_data = cur.fetchall()
         # Show an error instead of the categories
-        category_data = [(-1,"Error")]
+        # category_data = [(-1,"Error")] hashtag added variable was being rewritten by another line, so thin line nolonger needed Tyler Sabin 11/17/2023
         # Show all categories
-        #cur.execute('SELECT categoryId, name FROM categories')
-        #category_data = cur.fetchall()
-        
+        cur.execute('SELECT categoryId, name FROM categories') # hashtag in front of line removed by Tyler Sabin 11/16/2023
+        category_data = cur.fetchall() # hashtag in front of line removed by Tyler Sabin 11/16/2023
     item_data = parse(item_data)
     return render_template('home.html', itemData=item_data, loggedIn=logged_in, firstName=first_name, noOfItems=no_of_items, categoryData=category_data)
 
@@ -94,8 +93,11 @@ def displayCategory():
             "SELECT products.productId, products.name, products.price, products.image, categories.name FROM products, categories WHERE products.categoryId = categories.categoryId AND categories.categoryId = " + category_id)
         data = cur.fetchall()
     conn.close()
-    category_name = data[0][4]
-    data = parse(data)
+    if data:  # Tyler Sabin 11/18/2023
+        category_name = data[0][4]  # line moved by Tyler Sabin 11/18/2023
+    else:  # Tyler Sabin 11/18/2023
+        category_name = " Sorry, there are no books in this category at this time"  # Tyler Sabin 11/18/2023
+    data = parse(data)  # line moved by Tyler Sabin 11/18/2023
     return render_template('displayCategory.html', data=data, loggedIn=logged_in, firstName=first_name,
                            noOfItems=no_of_items, categoryName=category_name)
 
@@ -177,10 +179,10 @@ def update_profile():
 @app.route("/loginForm")
 def login_form():
     # Uncomment to enable logging in and registration
-    #if 'email' in session:
+    if 'email' in session:            #Uncommented by Yeab 1/18/2023
         return redirect(url_for('root'))
-    #else:
-    #    return render_template('login.html', error='')
+    else:               #Uncommented by Yeab 1/18/2023
+        return render_template('login.html', error='')      #Uncommented by Yeab 1/18/2023
 
 @app.route("/login", methods = ['POST', 'GET'])
 def login():
