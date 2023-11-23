@@ -295,7 +295,7 @@ def payment():
     total_price = 0
     for row in products:
         total_price += row[2]
-      #  print(row)      Commented by yeab 11/22/203
+      #  print(row)      Commented by yeab 11/22/2023
         cur.execute("INSERT INTO Orders (userId, productId) VALUES (?, ?)", (user_id, row[0]))
     cur.execute("DELETE FROM kart WHERE userId = " + str(user_id))
     conn.commit()
