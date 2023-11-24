@@ -34,9 +34,9 @@ def root():
     with sqlite3.connect('database.db') as conn:
         cur = conn.cursor()
         # Show last product added
-        cur.execute('SELECT productId, name, price, description, image, stock FROM products ORDER BY productId DESC LIMIT 1 ')
+        cur.execute('SELECT productId, name, price, description, image, stock FROM products ORDER BY productId DESC  LIMIT 1')
         # Show all items
-        cur.execute('SELECT productId, name, price, description, image, stock FROM products LIMIT 1') # hashtag in front of line removed by Tyler Sabin 11/16/2023
+        cur.execute('SELECT productId, name, price, description, image, stock FROM products ')
         item_data = cur.fetchall()
         # Show an error instead of the categories
         category_data = [(-1,"Error")]
