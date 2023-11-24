@@ -34,12 +34,12 @@ def root():
     with sqlite3.connect('database.db') as conn:
         cur = conn.cursor()
         # Show last product added
-        cur.execute('SELECT productId, name, price, description, image, stock FROM products ORDER BY productId DESC LIMIT 1 ')
+        cur.execute('SELECT productId, name, price, description, image, stock FROM products ORDER BY productId DESC  LIMIT 1')
         # Show all items
-        cur.execute('SELECT productId, name, price, description, image, stock FROM products LIMIT 1') # hashtag in front of line removed by Tyler Sabin 11/16/2023
+        cur.execute('SELECT productId, name, price, description, image, stock FROM products ')
         item_data = cur.fetchall()
         # Show an error instead of the categories
-        # category_data = [(-1,"Error")] hashtag added variable was being rewritten by another line, so thin line nolonger needed Tyler Sabin 11/17/2023
+        category_data = [(-1,"Error")]
         # Show all categories
         cur.execute('SELECT categoryId, name FROM categories') # hashtag in front of line removed by Tyler Sabin 11/16/2023
         category_data = cur.fetchall() # hashtag in front of line removed by Tyler Sabin 11/16/2023
@@ -93,11 +93,8 @@ def displayCategory():
             "SELECT products.productId, products.name, products.price, products.image, categories.name FROM products, categories WHERE products.categoryId = categories.categoryId AND categories.categoryId = " + category_id)
         data = cur.fetchall()
     conn.close()
-    if data:  # Tyler Sabin 11/18/2023
-        category_name = data[0][4]  # line moved by Tyler Sabin 11/18/2023
-    else:  # Tyler Sabin 11/18/2023
-        category_name = " Sorry, there are no books in this category at this time"  # Tyler Sabin 11/18/2023
-    data = parse(data)  # line moved by Tyler Sabin 11/18/2023
+    category_name = data[0][4]
+    data = parse(data)
     return render_template('displayCategory.html', data=data, loggedIn=logged_in, firstName=first_name,
                            noOfItems=no_of_items, categoryName=category_name)
 
