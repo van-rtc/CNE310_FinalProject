@@ -34,9 +34,9 @@ def root():
     with sqlite3.connect('database.db') as conn:
         cur = conn.cursor()
         # Show last product added
-        cur.execute('SELECT productId, name, price, description, image, stock FROM products ORDER BY productId DESC  LIMIT 1')
+        cur.execute('SELECT productId, name, price, description, image, stock FROM products ORDER BY productId DESC LIMIT 1')
         # Show all items
-        cur.execute('SELECT productId, name, price, description, image, stock FROM products ')
+        cur.execute('SELECT productId, name, price, description, image, stock FROM products')
         item_data = cur.fetchall()
         # Show an error instead of the categories
         category_data = [(-1,"Error")]
@@ -44,7 +44,7 @@ def root():
         cur.execute('SELECT categoryId, name FROM categories') # hashtag in front of line removed by Tyler Sabin 11/16/2023
         category_data = cur.fetchall() # hashtag in front of line removed by Tyler Sabin 11/16/2023
     item_data = parse(item_data)
-    return render_template('home.html', itemData=item_data, loggedIn=logged_in, firstName=first_name, noOfItems=no_of_items, categoryData=category_data)
+    return render_template('home.html',itemData=item_data, loggedIn=logged_in, firstName=first_name, noOfItems=no_of_items, categoryData=category_data)
 
 @app.route("/add")
 def admin():
